@@ -17,10 +17,10 @@ public class UDPHolePunchingClient {
         byte[] buf;
 
         writeOnFile(LocalDateTime.now() + ", " + "Client start");
+        ping(maxSizePackage, address, port, socket, timeout, 1);
 
-        for (int i = 1; ; i++) {
+        for (int i = 2; ; i++) {
 
-            ping(maxSizePackage, address, port, socket, timeout, i);
 
             try {
 
@@ -30,13 +30,13 @@ public class UDPHolePunchingClient {
                         address, port);
                 DatagramPacket packetNotifyFromServer = new DatagramPacket(buf, buf.length);
                 socket.setSoTimeout(timeout);
-//                System.out.println("Я жду нотифай");
+                System.out.println("Я жду нотифай");
                 socket.receive(packetNotifyFromServer);
-//                System.out.println("Я получил нотифай");
+                System.out.println("Я получил нотифай");
                 i++;
                 System.out.println(LocalDateTime.now() + ", Server: " + new String(packetNotifyFromServer.getData()) + ", i = " + i);
                 writeOnFile(LocalDateTime.now() + ", Server: " + new String(packetNotifyFromServer.getData()) + ", i = " + i);
-//                System.out.println("Я отправил гет");
+                System.out.println("Я отправил гет");
                 socket.send(packetNotifyGetToServer);
 
 //                    TimeUnit.SECONDS.sleep(30);
@@ -67,12 +67,12 @@ public class UDPHolePunchingClient {
             DatagramPacket packetPingToServer = new DatagramPacket(messagePing, messagePing.length,
                     address, port);
             DatagramPacket packetPongFromServer = new DatagramPacket(buf, buf.length);
-//            System.out.println("Я отправил пинг");
+            System.out.println("Я отправил пинг");
             socket.send(packetPingToServer);
             socket.setSoTimeout(timeout);
-//            System.out.println("Я жду понг");
+            System.out.println("Я жду понг");
             socket.receive(packetPongFromServer);
-//            System.out.println("Я получил понг");
+            System.out.println("Я получил понг");
 //                    TimeUnit.SECONDS.sleep(30);
 
             System.out.println(LocalDateTime.now() + ", Server: " + new String(packetPongFromServer.getData()) + ", i = " + i);
