@@ -10,8 +10,8 @@ public class UDPHolePunchingClient {
     public static void main(String[] args) throws Exception {
 
         DatagramSocket socket = new DatagramSocket();
-        InetAddress address = InetAddress.getByName("localhost");
-        int port = 8080;
+        InetAddress address = InetAddress.getByName("metricon.hivecompany.com");
+        int port = 14023;
         int timeout = 30000;
         int maxSizePackage = 8;
         byte[] buf;
@@ -24,7 +24,7 @@ public class UDPHolePunchingClient {
 
             try {
 
-                byte[] messageGetNotify = "get".getBytes();
+                byte[] messageGetNotify = "received".getBytes();
                 buf = new byte[maxSizePackage];
                 DatagramPacket packetNotifyGetToServer = new DatagramPacket(messageGetNotify, messageGetNotify.length,
                         address, port);
